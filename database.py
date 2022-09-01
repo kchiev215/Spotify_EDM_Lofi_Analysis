@@ -1,12 +1,20 @@
 import sqlite3
 import pandas as pd
 import sqlalchemy
-from sqlalchemy.engine import cursor
+import mysql.connector
+import Authorization
 
-DATABASE_LOCATION = "sqlite:///my_played_tracks.sqlite"
-conn = sqlite3.connect('my_played_tracks.sqlite')
-engine = sqlalchemy.create_engine(DATABASE_LOCATION)
-cursor = conn.cursor()
+# DATABASE_LOCATION = "sqlite:///my_played_tracks.sqlite"
+# conn = sqlite3.connect('my_played_tracks.sqlite')
+# engine = sqlalchemy.create_engine(DATABASE_LOCATION)
+# cursor = conn.cursor()
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user=Authorization.my_sql_username,
+    password=Authorization.my_sql_password,
+    database="spotify_comparison"
+)
 
 
 # Validate data
@@ -27,36 +35,46 @@ def validate_songs_data(df: pd.DataFrame):
         raise Exception("Null values are present in the dataset. Exiting execution.")
 
 
-def create_database():
+def create_load_lofi():
     # Load
     sql_query = """
-    CREATE TABLE IF NOT EXISTS my_played_tracks(
+    CREATE TABLE IF NOT EXISTS lofi_music(
     track_name VARCHAR(200),
     artist_name VARCHAR(200),
     album VARCHAR(200),
     release_date VARCHAR(200),
     artist_genres VARCHAR(200),
-    timestamp VARCHAR(200),
-    CONSTRAINT my_played_tracks PRIMARY KEY (timestamp)
+    CONSTRAINT track_info PRIMARY KEY (track_name, artist_name)
     )
     """
+    cursor = conn.cursor()
+
     cursor.execute(sql_query)
+
     print("Opened database successfully")
 
-    print("Attempting to add data in...")
-
-
-def update_database():
-    # Updating/Appending db into table
-    Update_Table = """INSERT OR REPLACE INTO my_played_tracks(track_name, artist_name, album, release_date, 
-    artist_genres, timestamp) VALUES(?, ?, ?, ?, ?, ?);"""
-
-    # Taking the values and adding them into the columns
-    for track in song_df.values:
-        cursor.execute(Update_Table, track)
-        conn.commit()
-    print("Data successfully adding.")
+    Update_Table = """INSERT OR REPLACE INTO lofi_music(track_name, artist_name, album, release_date, 
+    artist_genres) VALUES(?, ?, ?, ?, ?, ?);"""
 
     conn.close()
 
-    print("Closed database successfully")
+
+def create_load_EDM():
+    # Load
+    sql_query = """
+    CREATE TABLE IF NOT EXISTS EDM_music(
+    track_name VARCHAR(200),
+    artist_name VARCHAR(200),
+    album VARCHAR(200),
+    release_date VARCHAR(200),
+    artist_genres VARCHAR(200),
+    CONSTRAINT track_info PRIMARY KEY (track_name, artist_name)
+    )
+    """
+    cursor = conn.cursor()
+
+    cursor.execute(sql_query)
+
+    print("Opened database successfully")
+
+    conn.close()

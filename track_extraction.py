@@ -33,10 +33,19 @@ def get_track_info(pl_URI):
     artist_genre = []
     albums = []
     release_dates = []
-    # artists_info = []
-    # track_popularity = []
-    sound_quality = []
-    # artist_popularity = []
+
+    # sound_quality
+    acousticness = []
+    danceability = []
+    energy = []
+    instrumentalness = []
+    liveness = []
+    loudness = []
+    speechiness = []
+    tempo = []
+    valence = []
+
+
 
     playlist = sp.playlist_items(pl_URI)
     for track in playlist["items"]:
@@ -56,9 +65,8 @@ def get_track_info(pl_URI):
         artist_name = track["track"]["artists"][0]["name"]
         artist_names.append(artist_name)
 
+        # Genre information
         artist_info = sp.artist(artist_uri)
-        # artist_pop = artist_info["popularity"]
-        # artist_popularity.append(artist_pop)
         artist_genres = artist_info["genres"]
         artist_genre.append(artist_genres)
 
@@ -68,12 +76,18 @@ def get_track_info(pl_URI):
         release_day = track["track"]["album"]["release_date"]
         release_dates.append(release_day)
 
-        # # Popularity of the track
-        # track_pop = track["track"]["popularity"]
-        # track_popularity.append(track_pop)
-
+        # Audio features
         audio_info = sp.audio_features(track_uri)[0]
-        sound_quality.append(audio_info)
+        acousticness.append(audio_info["acousticness"])
+        danceability.append(audio_info["danceability"])
+        energy.append(audio_info["energy"])
+        liveness.append(audio_info["liveness"])
+        loudness.append(audio_info["loudness"])
+        instrumentalness.append(audio_info["instrumentalness"])
+        speechiness.append(audio_info["speechiness"])
+        tempo.append(audio_info["tempo"])
+        valence.append(audio_info["valence"])
+
 
     song_dict = {
         "track_name": track_names,
@@ -81,13 +95,18 @@ def get_track_info(pl_URI):
         "album": albums,
         "artist_genre": artist_genre,
         "release_date": release_dates,
-        "sound_quality": sound_quality
+        "acousticness": acousticness,
+        "danceability": danceability,
+        "energy": energy,
+        "liveness": liveness,
+        "loudness": loudness,
+        "instrumentalness": instrumentalness,
+        "speechiness": speechiness,
+        "tempo": tempo,
+        "valence": valence,
     }
 
     ct = datetime.datetime.now()
-
-    # print(track_uris1, track_names, artist_uris, artist_names, artist_genre, albums, track_popularity, sound_quality,
-    #       artist_popularity, ct)
 
     song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date",
                                                "sound_quality"])
