@@ -1,10 +1,7 @@
-"""THIS IS FOR TOP 50 SONGS IN DIFFERENT COUNTRIES/AREAS"""
-import sqlite3
-import pytz
+"""TRACK INFORMATION NEEDED FOR ANALYSIS"""
 import spotipy
 import pandas as pd
 import datetime
-import sqlalchemy
 import Authorization
 
 sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
@@ -44,8 +41,6 @@ def get_track_info(pl_URI):
     speechiness = []
     tempo = []
     valence = []
-
-
 
     playlist = sp.playlist_items(pl_URI)
     for track in playlist["items"]:
@@ -88,7 +83,6 @@ def get_track_info(pl_URI):
         tempo.append(audio_info["tempo"])
         valence.append(audio_info["valence"])
 
-
     song_dict = {
         "track_name": track_names,
         "artist_name": artist_names,
@@ -108,10 +102,9 @@ def get_track_info(pl_URI):
 
     ct = datetime.datetime.now()
 
-    song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date",
-                                               "sound_quality"])
+    song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date", "acousticness", "danceability", "energy", "liveness",
+                                               "loudness", "instrumentalness", "speechiness", "tempo", "valence"])
     print(song_df, ct)
-
 
 # get_track_info(TOP_50_GLOBAL_DAILY)
 # get_track_info(TOP_50_JP_DAILY)
