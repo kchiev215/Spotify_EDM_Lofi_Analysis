@@ -1,11 +1,10 @@
 import track_extraction
-import database
 import sqlite3
-import pandas as pd
 import sqlalchemy
 
 EDM_PL = "37i9dQZF1DX1kCIzMYtzum"
 EDM_HITS = "37i9dQZF1DX3Kdv0IChEm9"
+EDM_MIX_JUST_FOR_YOU = "37i9dQZF1EIed8lWkU8WSm"
 
 DATABASE_LOCATION = "sqlite:///spotify_EDMvsLoFi.sqlite"
 
@@ -14,6 +13,8 @@ if __name__ == "__main__":
     conn = sqlite3.connect('spotify_EDMvsLoFi.sqlite')
     engine = sqlalchemy.create_engine(DATABASE_LOCATION)
     cursor = conn.cursor()
+
+    # Creating the database if it doesn't exist
     sql_query = """
     CREATE TABLE IF NOT EXISTS EDM_music(
     track_name VARCHAR(200),

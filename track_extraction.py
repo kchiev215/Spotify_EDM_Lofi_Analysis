@@ -30,8 +30,10 @@ def get_track_info(pl_URI):
     artist_genre = []
     albums = []
     release_dates = []
+    track_ids = []
 
     # sound_quality
+    audio_infos = []
     acousticness = []
     danceability = []
     energy = []
@@ -47,6 +49,10 @@ def get_track_info(pl_URI):
         # URI
         track_uri = track["track"]["uri"]
         track_uris1.append(track_uri)
+
+        # Track ID
+        track_id = track["track"]["id"]
+        track_ids.append(track_uri)
 
         # Track name
         track_name = track["track"]["name"]
@@ -77,8 +83,20 @@ def get_track_info(pl_URI):
         release_day = track["track"]["album"]["release_date"]
         release_dates.append(release_day)
 
-        # Audio features
-        audio_info = sp.audio_features(track_uri)[0]
+    # NoneType filter
+    for track_ID in track_ids:
+        audio_info = sp.audio_features(track_ID)[0]  # Get audio features for this specific track
+        if audio_info != None:
+            audio_infos.append(audio_info)
+        else:
+            audio_info = {"acousticness": "None", "danceability": "None", "energy": "None", "liveness": "None",
+                          "loudness": "None", "instrumentalness": "None", "speechiness": "None", "tempo": "None",
+                          "valence": "None"}
+
+            audio_infos.append(audio_info)
+
+    # Audio features
+    for audio_info in audio_infos:
         acousticness.append(audio_info["acousticness"])
         danceability.append(audio_info["danceability"])
         energy.append(audio_info["energy"])
@@ -110,4 +128,6 @@ def get_track_info(pl_URI):
 
     song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date", "acousticness", "danceability", "energy", "liveness",
                                                "loudness", "instrumentalness", "speechiness", "tempo", "valence"])
+
     return song_df
+# get_track_info("37i9dQZF1DX1kCIzMYtzum")
