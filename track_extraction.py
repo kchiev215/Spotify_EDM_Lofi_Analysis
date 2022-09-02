@@ -110,8 +110,4 @@ def get_track_info(pl_URI):
 
     song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date", "acousticness", "danceability", "energy", "liveness",
                                                "loudness", "instrumentalness", "speechiness", "tempo", "valence"])
-    print(song_df, ct)
-
-# get_track_info(TOP_50_GLOBAL_DAILY)
-# get_track_info(TOP_50_JP_DAILY)
-print(get_track_info("71d99pLh0TpbdIJESHAsDN"))
+    return song_df
