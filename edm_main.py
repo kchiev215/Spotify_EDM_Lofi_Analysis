@@ -39,7 +39,7 @@ if __name__ == "__main__":
     print("Opened database successfully")
 
     # Getting track information
-    track_df = track_extraction.get_track_info("37i9dQZF1DX3Kdv0IChEm9")
+    track_df = track_extraction.get_track_info("37i9dQZF1EIed8lWkU8WSm")
 
     # Loading data into database
     print("Attempting to load data into database")

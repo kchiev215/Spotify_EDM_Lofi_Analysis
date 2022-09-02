@@ -23,6 +23,7 @@ def get_URI(playlist):
 
 
 def get_track_info(pl_URI):
+    tracks = []
     track_uris1 = []
     track_names = []
     artist_uris = []
@@ -46,42 +47,50 @@ def get_track_info(pl_URI):
 
     playlist = sp.playlist_items(pl_URI)
     for track in playlist["items"]:
-        # URI
-        track_uri = track["track"]["uri"]
-        track_uris1.append(track_uri)
+        if track["track"] is not None:
+            # URI
+            track_uri = track["track"]["uri"]
+            track_uris1.append(track_uri)
 
-        # Track ID
-        track_id = track["track"]["id"]
-        track_ids.append(track_uri)
+            # Track ID
+            track_id = track["track"]["id"]
+            track_ids.append(track_id)
 
-        # Track name
-        track_name = track["track"]["name"]
-        track_names.append(track_name)
+            # Track name
+            track_name = track["track"]["name"]
+            track_names.append(track_name)
 
-        # Main Artist
-        artist_uri = track["track"]["artists"][0]["uri"]
-        artist_uris.append(artist_uri)
+            # Main Artist
+            artist_uri = track["track"]["artists"][0]["uri"]
+            artist_uris.append(artist_uri)
 
-        # Name, popularity, genre
-        artist_name = track["track"]["artists"][0]["name"]
-        artist_names.append(artist_name)
+            # Name, popularity, genre
+            artist_name = track["track"]["artists"][0]["name"]
+            artist_names.append(artist_name)
 
-        # Genre information
-        artist_info = sp.artist(artist_uri)
-        artist_genres = artist_info["genres"]
+            # Genre information
+            artist_info = sp.artist(artist_uri)
+            # Appending genres as a single item as list does not append well into DB
+            artist_genres = artist_info["genres"]
+            if len(artist_genres) == 0:
+                artist_genre.append("Not available")
+            else:
+                artist_genre.append(artist_genres[0])
 
-        # Appending genres to DB as list does not append well
-        artist_genres = artist_info["genres"]
-        if len(artist_genres) == 0:
-            artist_genre.append("Not available")
+            # Album
+            album = track["track"]["album"]["name"]
+            albums.append(album)
+            release_day = track["track"]["album"]["release_date"]
+            release_dates.append(release_day)
         else:
-            artist_genre.append(artist_genres[0])
-
-        # Album
-        album = track["track"]["album"]["name"]
-        albums.append(album)
-        release_day = track["track"]["album"]["release_date"]
-        release_dates.append(release_day)
+            track_uris1.append("None")
+            track_ids.append("None")
+            track_names.append("None")
+            artist_uris.append("None")
+            artist_names.append("None")
+            albums.append("None")
+            release_dates.append("None")
+            artist_genre.append("None")
 
     # NoneType filter
     for track_ID in track_ids:
@@ -126,8 +135,9 @@ def get_track_info(pl_URI):
 
     ct = datetime.datetime.now()
 
-    song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date", "acousticness", "danceability", "energy", "liveness",
+    song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date",
+                                               "acousticness", "danceability", "energy", "liveness",
                                                "loudness", "instrumentalness", "speechiness", "tempo", "valence"])
-
     return song_df
-# get_track_info("37i9dQZF1DX1kCIzMYtzum")
+
+# get_track_info(LOFI_BEATS)
