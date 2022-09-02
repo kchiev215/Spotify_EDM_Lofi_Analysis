@@ -63,7 +63,13 @@ def get_track_info(pl_URI):
         # Genre information
         artist_info = sp.artist(artist_uri)
         artist_genres = artist_info["genres"]
-        artist_genre.append(artist_genres)
+
+        # Appending genres to DB as list does not append well
+        artist_genres = artist_info["genres"]
+        if len(artist_genres) == 0:
+            artist_genre.append("Not available")
+        else:
+            artist_genre.append(artist_genres[0])
 
         # Album
         album = track["track"]["album"]["name"]
@@ -108,4 +114,4 @@ def get_track_info(pl_URI):
 
 # get_track_info(TOP_50_GLOBAL_DAILY)
 # get_track_info(TOP_50_JP_DAILY)
-# print(get_track_info("71d99pLh0TpbdIJESHAsDN"))
+print(get_track_info("71d99pLh0TpbdIJESHAsDN"))
