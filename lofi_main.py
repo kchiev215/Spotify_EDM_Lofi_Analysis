@@ -23,18 +23,18 @@ if __name__ == "__main__":
     album VARCHAR(200),
     artist_genres VARCHAR(200),
     release_date VARCHAR(200),
-    danceability VARCHAR(20),
-    energy VARCHAR(20),
-    key VARCHAR(20),
-    loudness VARCHAR(20),
-    mode VARCHAR(20),
-    speechiness VARCHAR(20),
-    acousticness VARCHAR(20),
-    instrumentalness VARCHAR(20),
-    liveness VARCHAR(20),
-    valence VARCHAR(20),
-    tempo VARCHAR(20),
-    duration_ms VARCHAR(20),
+    danceability BIT(20),
+    energy BIT(20),
+    key BIT(20),
+    loudness BIT(20),
+    mode BIT(20),
+    speechiness BIT(20),
+    acousticness BIT(20),
+    instrumentalness BIT(20),
+    liveness BIT(20),
+    valence BIT(20),
+    tempo BIT(20),
+    duration_ms BIT(20),
     CONSTRAINT track_info PRIMARY KEY (track_name, artist_name)
     )
     """
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print("Opened database successfully")
 
     # Getting track information
-    track_df = track_extraction.fetch_playlist_tracks(sp, "37i9dQZF1DX3SNr5BeQZSd")
+    track_df = track_extraction.fetch_playlist_tracks(sp, "37i9dQZF1DWWQRwui0ExPn")
 
     # Loading data into database
     print("Attempting to load data into database")
