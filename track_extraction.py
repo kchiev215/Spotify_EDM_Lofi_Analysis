@@ -11,7 +11,7 @@ EDM_HITS = "37i9dQZF1DX1kCIzMYtzum"
 LOFI_BEATS = "37i9dQZF1DWWQRwui0ExPn"
 
 
-def get_URI(playlist):
+def get_spotify_URI(playlist):
     if playlist.startswith("https://api.spotify.com/v1/playlists/") | playlist.startswith(
             "https://open.spotify.com/playlist/"):
         pl_URI = playlist.split("/")[-1]
@@ -22,8 +22,19 @@ def get_URI(playlist):
     return pl_URI
 
 
-def get_track_info(pl_URI):
+def fetch_playlist_tracks(sp, playlistsid):
+    offset = 0
     tracks = []
+    # Make the API request
+    while True:
+        content = sp.playlist_tracks(playlistsid, fields=None, limit=100, offset=offset, market=None)
+        tracks += content['items']
+
+        if content['next'] is not None:
+            offset += 100
+        else:
+            break
+
     track_uris1 = []
     track_names = []
     artist_uris = []
@@ -35,22 +46,21 @@ def get_track_info(pl_URI):
 
     # sound_quality
     audio_infos = []
-    acousticness = []
     danceability = []
     energy = []
+    key = []
+    loudness = []
+    mode = []
+    speechiness = []
+    acousticness = []
     instrumentalness = []
     liveness = []
-    loudness = []
-    speechiness = []
-    tempo = []
     valence = []
+    tempo = []
+    duration_ms = []
 
-    playlist = sp.playlist_items(pl_URI)
-    for track in playlist["items"]:
+    for track in tracks:
         if track["track"] is not None:
-            # URI
-            track_uri = track["track"]["uri"]
-            track_uris1.append(track_uri)
 
             # Track ID
             track_id = track["track"]["id"]
@@ -60,16 +70,14 @@ def get_track_info(pl_URI):
             track_name = track["track"]["name"]
             track_names.append(track_name)
 
-            # Main Artist
-            artist_uri = track["track"]["artists"][0]["uri"]
-            artist_uris.append(artist_uri)
-
-            # Name, popularity, genre
+            # Main Artist Information
             artist_name = track["track"]["artists"][0]["name"]
             artist_names.append(artist_name)
 
-            # Genre information
+            # Artist Genre information
+            artist_uri = track["track"]["artists"][0]["uri"]
             artist_info = sp.artist(artist_uri)
+
             # Appending genres as a single item as list does not append well into DB
             artist_genres = artist_info["genres"]
             if len(artist_genres) == 0:
@@ -82,15 +90,17 @@ def get_track_info(pl_URI):
             albums.append(album)
             release_day = track["track"]["album"]["release_date"]
             release_dates.append(release_day)
+
         else:
             track_uris1.append("None")
             track_ids.append("None")
             track_names.append("None")
             artist_uris.append("None")
             artist_names.append("None")
+            artist_genre.append("None")
             albums.append("None")
             release_dates.append("None")
-            artist_genre.append("None")
+
 
     # NoneType filter
     for track_ID in track_ids:
@@ -98,23 +108,26 @@ def get_track_info(pl_URI):
         if audio_info != None:
             audio_infos.append(audio_info)
         else:
-            audio_info = {"acousticness": "None", "danceability": "None", "energy": "None", "liveness": "None",
-                          "loudness": "None", "instrumentalness": "None", "speechiness": "None", "tempo": "None",
-                          "valence": "None"}
-
+            keys = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness',
+                    'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms']
+            value = "None"
+            audio_info = {i: value for i in keys}
             audio_infos.append(audio_info)
 
     # Audio features
     for audio_info in audio_infos:
-        acousticness.append(audio_info["acousticness"])
         danceability.append(audio_info["danceability"])
         energy.append(audio_info["energy"])
-        liveness.append(audio_info["liveness"])
+        key.append(audio_info["key"])
         loudness.append(audio_info["loudness"])
-        instrumentalness.append(audio_info["instrumentalness"])
+        mode.append(audio_info["mode"])
         speechiness.append(audio_info["speechiness"])
-        tempo.append(audio_info["tempo"])
+        acousticness.append(audio_info["acousticness"])
+        instrumentalness.append(audio_info["instrumentalness"])
+        liveness.append(audio_info["liveness"])
         valence.append(audio_info["valence"])
+        tempo.append(audio_info["tempo"])
+        duration_ms.append(audio_info["duration_ms"])
 
     song_dict = {
         "track_name": track_names,
@@ -122,22 +135,21 @@ def get_track_info(pl_URI):
         "album": albums,
         "artist_genre": artist_genre,
         "release_date": release_dates,
-        "acousticness": acousticness,
         "danceability": danceability,
         "energy": energy,
-        "liveness": liveness,
+        "key": key,
         "loudness": loudness,
-        "instrumentalness": instrumentalness,
+        "mode": mode,
         "speechiness": speechiness,
-        "tempo": tempo,
+        "acousticness": acousticness,
+        "instrumentalness": instrumentalness,
+        "liveness": liveness,
         "valence": valence,
+        "tempo": tempo,
+        "duration_ms": duration_ms,
     }
 
     ct = datetime.datetime.now()
 
-    song_df = pd.DataFrame(song_dict, columns=["track_name", "artist_name", "album", "artist_genre", "release_date",
-                                               "acousticness", "danceability", "energy", "liveness",
-                                               "loudness", "instrumentalness", "speechiness", "tempo", "valence"])
+    song_df = pd.DataFrame(song_dict, columns=song_dict.keys())
     return song_df
-
-# get_track_info(LOFI_BEATS)
