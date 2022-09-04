@@ -4,8 +4,10 @@ import sqlalchemy
 import spotipy
 import Authorization
 
+# Spotify featured LoFi playlists
 LOFI_BEATS = "37i9dQZF1DWWQRwui0ExPn"
 VIRAL_LOFI = "37i9dQZF1DX3SNr5BeQZSd"
+
 sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
 DATABASE_LOCATION = "sqlite:///spotify_EDMvsLoFi_new.sqlite"
 
@@ -59,4 +61,4 @@ if __name__ == "__main__":
         conn.commit()
     print("Data successfully adding.")
 
-#line
+# line

@@ -6,12 +6,8 @@ import Authorization
 
 sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
 
-# EDM hits
-EDM_HITS = "37i9dQZF1DX1kCIzMYtzum"
-LOFI_BEATS = "37i9dQZF1DWWQRwui0ExPn"
 
-
-def get_spotify_URI(playlist):
+def get_spotify_featured_URI(playlist):
     if playlist.startswith("https://api.spotify.com/v1/playlists/") | playlist.startswith(
             "https://open.spotify.com/playlist/"):
         pl_URI = playlist.split("/")[-1]
@@ -44,7 +40,7 @@ def fetch_playlist_tracks(sp, playlistsid):
     release_dates = []
     track_ids = []
 
-    # sound_quality
+    # sound features
     audio_infos = []
     danceability = []
     energy = []
@@ -70,7 +66,7 @@ def fetch_playlist_tracks(sp, playlistsid):
             track_name = track["track"]["name"]
             track_names.append(track_name)
 
-            # Main Artist Information
+            # Main Artist Information (Name)
             artist_name = track["track"]["artists"][0]["name"]
             artist_names.append(artist_name)
 
@@ -85,7 +81,7 @@ def fetch_playlist_tracks(sp, playlistsid):
             else:
                 artist_genre.append(artist_genres[0])
 
-            # Album
+            # Album Information (album name and release date)
             album = track["track"]["album"]["name"]
             albums.append(album)
             release_day = track["track"]["album"]["release_date"]
@@ -100,7 +96,6 @@ def fetch_playlist_tracks(sp, playlistsid):
             artist_genre.append("None")
             albums.append("None")
             release_dates.append("None")
-
 
     # NoneType filter
     for track_ID in track_ids:

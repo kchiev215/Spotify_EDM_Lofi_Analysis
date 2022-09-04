@@ -4,9 +4,11 @@ import sqlalchemy
 import spotipy
 import Authorization
 
+# Spotify featured EDM playlists
 EDM_PL = "37i9dQZF1DX1kCIzMYtzum"
 EDM_HITS = "37i9dQZF1DX3Kdv0IChEm9"
 EDM_MIX_JUST_FOR_YOU = "37i9dQZF1EIed8lWkU8WSm"
+
 sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
 DATABASE_LOCATION = "sqlite:///spotify_EDMvsLoFi_new.sqlite"
 
