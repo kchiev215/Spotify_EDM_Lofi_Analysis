@@ -1,27 +1,25 @@
-import sqlite3
-from turtle import title
 from flask import render_template, url_for
-import pandas as pd
 import json
 import plotly
 import plotly.express as px
-from dash import Dash, html
-
+from flaskext.markdown import Markdown
 from flask import Flask
 
 app = Flask(__name__)
+Markdown(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    mkd_text = "## Your Markdown Here "
+    return render_template("index.html",mkd_text=mkd_text)
 
 
 @app.route('/charts')
 def chart1():
     # Graph One
-    df = px.data.medals_wide()
-    fig1 = px.bar(df, x="nation", y=["gold", "silver", "bronze"], title="Wide-Form Input")
-    graph1JSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
+    df = px.data.tips()
+    fig = px.histogram(df, x="total_bill", y="tip", color="sex", marginal="rug", hover_data=df.columns)
+    graph1JSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Graph two
     df = px.data.iris()
