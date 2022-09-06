@@ -5,8 +5,28 @@
              Audio Analysis
         </h1>
     </div>
-
-            <div><img src="./static/analysis_charts/edm_correlation_heatmap.png", align="middle"> </div>
+        <nav id="navbar-example2" class="navbar bg-light px-3 mb-3">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Jump to:
+                </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#scrollspyHeading1">First heading</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading2">Acousticness</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading3">Danceability</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading4">Instrumentalness</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading5">Speechiness</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading6">Tempo</a></li>
+                <li><a class="dropdown-item" href="#scrollspyHeading7">Valence</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+          <h4 id="scrollspyHeading1">First heading</h4>
+          <p><div><img src="./static/analysis_charts/edm_correlation_heatmap.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
                 Findings:
@@ -68,6 +88,7 @@
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading2">Acousticness</h4>
         <h2 class="text-center"> Acousticness</h2>
             <div><img src="./static/analysis_charts/acousticness_comparison.png", align="middle"> </div>
             <div class="card">
@@ -77,60 +98,88 @@
                   <br>
                   Findings:
                   <br>
-                    - Higher
+                    - More tracks in the lofi playlist leaned towards a more acoustic sound while there were very little acoustiness found in EDM tracks
               </div>
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading3">Danceability</h4>
         <h2 class="text-center"> Danceability</h2>
             <div><img src="./static/analysis_charts/comparison_danceability.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
-                  Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.                  <br>
+                  Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+                  <br>
                   <br>
                   Findings:
                   <br>
-                  - DM on average is louder than LofiE
+                  - Similarities in danceabilities. Possibly due to different forms of dance such as shuffling and contemporary dance which matches the speeds of each type of genre.
               </div>
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading4">Instrumentalness</h4>
         <h2 class="text-center"> Instrumentalness</h2>
             <div><img src="./static/analysis_charts/instrumentalness_comparison.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
-                This is some text within a card body.
+                  Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                  - Lofi tracks has more instruments in their tracks while EDM does not. Expected as EDM uses saved sounds, synthesizers, and samplings.
               </div>
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading5">Speechiness</h4>
         <h2 class="text-center"> Speechiness</h2>
             <div><img src="./static/analysis_charts/speechiness_comparison.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
-                This is some text within a card body.
+                  Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
+                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                  - Very little spoken words in both EDM and Lofi
               </div>
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading6">Tempo</h4>
         <h2 class="text-center"> Tempo</h2>
             <div><img src="./static/analysis_charts/tempo_comparison.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
-                This is some text within a card body.
+                  The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
+                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                  - Tempo slightly faster overall in EDM compared to Lofi
               </div>
             </div>
             <br>
             <br>
+            <h4 id="scrollspyHeading7">Valence</h4>
         <h2 class="text-center"> Valence</h2>
             <div><img src="./static/analysis_charts/valence_comparison.png", align="middle"> </div>
             <div class="card">
               <div class="card-body">
-                This is some text within a card body.
+                  A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+                  <br>
+                  >= 0 <= 1
+                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                  - Valence is neutral with some lean towards the negative side.
               </div>
             </div>
             <br>
             <br>
-
+        </div>
 
 {% endblock %}
