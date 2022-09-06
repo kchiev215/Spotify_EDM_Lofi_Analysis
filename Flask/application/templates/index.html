@@ -1,17 +1,97 @@
 {% extends "layout.html" %}
 {% block content %}
+<head>
+    <style>
+        p {
+            margin-left: 40px;
+        }
+    </style>
+</head>
     <div class="site-header-logo">
         <h1 class="text-center">
             Welcome!
         </h1>
-    </div>
 
-    <div class="jumbotron">
-      <h1 class="display-8">EDA of Spotify's Audio Feature</h1>
-      <p class="display-12">Final Project</p>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    </div>
+   <nav id="navbar-example2" class="navbar bg-light px-3 mb-3">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" href="#scrollspyHeading1">First</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#scrollspyHeading2">Second</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drop Down
+            </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+      <h2>Audio Analysis of EDM and Lofi Music</h2>
+      Used Spotify's API to retrieve the audio features of Lofi and EDM tracks on Spotify for a
+          in-depth analysis of attributes which makes them different from one another.
+      <br>
+      <br>
+      <h4 id="scrollspyHeading1">Inspiration behind the analysis:</h4>
+        <p>
+          - <u>Lofi</u> : Typically seen to be used to de-stress at the end of the day or studying needs
+          <br>
+          - <u>EDM</u> : Uplifting one's mood, rave festivals/concerts, jamming out
+          <br>
+          - <u>Curiosity</u> : What attributes best fits each music type and how does it link to the activities others use them for in their daily lives</p>
+        <br>
+      <h4 id="scrollspyHeading2">Tools Used:</h4>
+      <p><u>Back-end:</u>
+        <br>
+        - Pycharm
+        <br>
+        - Python
+        <br>
+        - Jupyter Notebook
+        <br>
+        - Pandas
+        <br>
+        - NumPy
+        <br>
+        - Matplotlib
+        <br>
+        - SQLite Database</p>
+        <p><u>Front-end:</u>
+        <br>
+        - Flask
+        <br>
+        - HTML/CSS
+        <br>
+        <br>
+      <h4 id="scrollspyHeading3">Method</h4>
+      <p>1. Developed a pipeline to retrieve metadata from API:
+        <br>
+        - Track title
+        <br>
+        - Release title
+        <br>
+        - Artist name
+        <br>
+        - Artist genre
+        <br>
+        - Release Date
+        <br>
+        - Audio features:
+        <br>
 
+      </p>
+      <h4 id="scrollspyHeading4">Fourth heading</h4>
+      <p>...</p>
+      <h4 id="scrollspyHeading5">Fifth heading</h4>
+      <p>...</p>
+    </div>
 
 {% endblock %}
