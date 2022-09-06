@@ -3,7 +3,7 @@
 <head>
     <style>
         p {
-            margin-left: 40px;
+            margin-left: 30px;
         }
     </style>
 </head>
@@ -13,33 +13,30 @@
         </h1>
 
    <nav id="navbar-example2" class="navbar bg-light px-3 mb-3">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Learn about my research</a>
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link" href="#scrollspyHeading1">First</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#scrollspyHeading2">Second</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Drop Down
+            Jump to:
             </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
-            <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading1">Inspiration</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading2">Tools Used</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading3">Method</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading4">Discussion</a></li>
+            <li><a class="dropdown-item" href="#scrollspyHeading5">Conclusion</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+
       <h2>Audio Analysis of EDM and Lofi Music</h2>
       Used Spotify's API to retrieve the audio features of Lofi and EDM tracks on Spotify for a
           in-depth analysis of attributes which makes them different from one another.
       <br>
       <br>
+
       <h4 id="scrollspyHeading1">Inspiration behind the analysis:</h4>
         <p>
           - <u>Lofi</u> : Typically seen to be used to de-stress at the end of the day or studying needs
@@ -47,7 +44,7 @@
           - <u>EDM</u> : Uplifting one's mood, rave festivals/concerts, jamming out
           <br>
           - <u>Curiosity</u> : What attributes best fits each music type and how does it link to the activities others use them for in their daily lives</p>
-        <br>
+
       <h4 id="scrollspyHeading2">Tools Used:</h4>
       <p><u>Back-end:</u>
         <br>
@@ -69,8 +66,8 @@
         - Flask
         <br>
         - HTML/CSS
-        <br>
-        <br>
+          <br></p>
+
       <h4 id="scrollspyHeading3">Method</h4>
       <p>1. Developed a pipeline to retrieve metadata from API:
         <br>
@@ -86,12 +83,61 @@
         <br>
         - Audio features:
         <br>
-
+        - Danceability
+        <br>
+        - Energy
+        <br>
+        - Key
+        <br>
+        - Loudness
+        <br>
+        - Mode
+        <br>
+        - Speechiness
+        <br>
+        - Acousticness
+        <br>
+        - Instrumentalness
+        <br>
+        - Liveness
+        <br>
+        - Valence
+        <br>
+        - Tempo
+        <br>
+        - Duration(ms)
+        <br>
+        - For a more in-depth description of the audio features, refer back to this [link](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features)
+        <br>
+        2. Uploaded the data into a SQLite database
+        <br>
+	    - The tracks obtained and loaded into the database were from Spotify featured playlists and split into 2 different tables based on their genre for analysis
+        <br>
+        3. Uploaded SQLite database into Jupyter Notebook for analysis:
+	    <br>
+        - Correlations
+	    <br>
+        - Audio features vs frequency
+		<br>
+        - Used to determine which audio features are prominant in each genre
+        <br>
+        4. Created front-end on Flask using Python and bootstrap for presentation
+        <br>
+        5. Wrote up conclusions based off of findings from analysis
+        <br>
       </p>
-      <h4 id="scrollspyHeading4">Fourth heading</h4>
-      <p>...</p>
-      <h4 id="scrollspyHeading5">Fifth heading</h4>
-      <p>...</p>
+      <h4 id="scrollspyHeading4">Discussion</h4>
+      <p>
+        - Spotify tracks do not include track genre:
+        <br>
+	    - However, there are artist genres which may not be accurate to the track itself as artists likes to try new techniques and skills which could place their song in a genre different than their own.
+		<br>
+        - Could be an idea to add genre to assist with their ML/recommendations, if not already used for recomending music</p>
+        <br>
+      <h4 id="scrollspyHeading5">Conclusion</h4>
+      <p>
+        TBD
+      </p>
     </div>
 
 {% endblock %}

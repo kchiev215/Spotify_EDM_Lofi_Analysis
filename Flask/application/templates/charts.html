@@ -2,50 +2,135 @@
 {% block content %}
     <div class="site-header-logo">
         <h1 class="text-center">
-             Thina's Spotify Analysis
+             Audio Analysis
         </h1>
     </div>
 
-    <div class="row p-4">
-        <div class="card m-auto" style="width: 100%;" data-aos="fade-left">
-            <div class="card-body">
-                <div id="chart1"></div>
-                <p class="card-text">Description of chart1 goes here</p>
+            <div><img src="./static/analysis_charts/edm_correlation_heatmap.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                Findings:
+                  <br>
+                  - Moderate positive correlation between energy and loudness
+                  <br>
+                  - Low positive correlation between valence and danceability
+                  <br>
+                  - Low negative correlation between acousticness and energy and acousticness and loudness
+                  <br>
+              </div>
             </div>
+            <br>
+            <br>
+            <div><img src="./static/analysis_charts/correlation_lofi_map.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                Findings:
+                  <br>
+                  - Moderate positive correlation between energy and loudness
+                  <br>
+                  - Low positive correlation between valance and danceability
+                  <br>
+                  - Low negative correlation between tempo and danceability and acousticness and energy
+              </div>
             </div>
-        </div>
-
-    <div class="row p-4">
-        <div class="card m-auto" style="width: 100%;" data-aos="fade-left">
-            <div class="card-body">
-                <div id="chart2"></div>
-                <p class="card-text">Description of chart1 goes here</p>
+            <br>
+            <br>
+            <div><img src="./static/analysis_charts/comparison_bar_wo_loudness.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                Findings:
+                  <br>
+                  - EDM: Higher in energy
+                  <br>
+                  - Lofi: Higher in acousticness and instrumentalness
+                  <br>
+              </div>
             </div>
+            <br>
+            <br>
+            <div><img src="./static/analysis_charts/comparison_tempo_color.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                Findings:
+                  <br>
+                  - EDM tempos are a bit faster on average than Lofi
+              </div>
             </div>
-        </div>
-
-
-    <div class="row p-4">
-        <div class="card m-auto" style="width: 100%;" data-aos="fade-left">
-            <div class="card-body">
-                <div id="chart3"></div>
-                <p class="card-text">Description of chart1 goes here</p>
+            <br>
+            <br>
+            <div><img src="./static/analysis_charts/comparison_loudness_color.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                Findings:
+                  <br>
+                  - EDM on average is louder than Lofi
+              </div>
             </div>
+            <br>
+            <br>
+        <h2 class="text-center"> Acousticness</h2>
+            <div><img src="./static/analysis_charts/acousticness_comparison.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                  A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
+                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                    - Higher
+              </div>
             </div>
-        </div>
-    <!-- plotly CDN -->
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        var graphs1 = {{ graph1JSON | safe}};
-        Plotly.plot("chart1", graphs1,{});
-
-        var graphs2 = {{ graph2JSON | safe}};
-        Plotly.plot("chart2", graphs2,{});
-
-        var graphs3 = {{ graph3JSON | safe}};
-        Plotly.plot("chart3", graphs3,{});
-    </script>
+            <br>
+            <br>
+        <h2 class="text-center"> Danceability</h2>
+            <div><img src="./static/analysis_charts/comparison_danceability.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                  Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.                  <br>
+                  <br>
+                  Findings:
+                  <br>
+                  - DM on average is louder than LofiE
+              </div>
+            </div>
+            <br>
+            <br>
+        <h2 class="text-center"> Instrumentalness</h2>
+            <div><img src="./static/analysis_charts/instrumentalness_comparison.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                This is some text within a card body.
+              </div>
+            </div>
+            <br>
+            <br>
+        <h2 class="text-center"> Speechiness</h2>
+            <div><img src="./static/analysis_charts/speechiness_comparison.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                This is some text within a card body.
+              </div>
+            </div>
+            <br>
+            <br>
+        <h2 class="text-center"> Tempo</h2>
+            <div><img src="./static/analysis_charts/tempo_comparison.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                This is some text within a card body.
+              </div>
+            </div>
+            <br>
+            <br>
+        <h2 class="text-center"> Valence</h2>
+            <div><img src="./static/analysis_charts/valence_comparison.png", align="middle"> </div>
+            <div class="card">
+              <div class="card-body">
+                This is some text within a card body.
+              </div>
+            </div>
+            <br>
+            <br>
 
 
 {% endblock %}
