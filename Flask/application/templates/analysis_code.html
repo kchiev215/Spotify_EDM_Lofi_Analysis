@@ -2,7 +2,7 @@
 {% block content %}
     <div class="site-header-logo">
         <h1 class="text-center">
-            Code Behind The Website
+            "The Process"
         </h1>
         <head>
           <link rel="stylesheet"
@@ -10,8 +10,23 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
           <script>hljs.initHighlightingOnLoad();</script>
         </head>
-        <body>
-          <pre><code class="python">"""TRACK INFORMATION NEEDED FOR ANALYSIS"""
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Data Extraction</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Create and load database (Lofi) </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Create and load database (EDM)</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+<!-- Pipeline code goes here -->
+                  <body>
+                  <pre>
+                      <code class="python">"""TRACK INFORMATION NEEDED FOR ANALYSIS"""
 import spotipy
 import pandas as pd
 import datetime
@@ -163,5 +178,147 @@ def fetch_playlist_tracks(sp, playlistsid):
     return song_df
 </code></pre>
         </body>
+              </div>
+
+<!--   Lofi playlist code   -->
+              <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  <body>
+                  <pre>
+                      <code class="python">import track_extraction
+import sqlite3
+import sqlalchemy
+import spotipy
+import Authorization
+
+# Spotify featured LoFi playlists
+LOFI_BEATS = "37i9dQZF1DWWQRwui0ExPn"
+VIRAL_LOFI = "37i9dQZF1DX3SNr5BeQZSd"
+
+sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
+DATABASE_LOCATION = "sqlite:///spotify_EDMvsLoFi_new.sqlite"
+
+if __name__ == "__main__":
+    # Load
+    conn = sqlite3.connect('spotify_EDMvsLoFi_new.sqlite')
+    engine = sqlalchemy.create_engine(DATABASE_LOCATION)
+    cursor = conn.cursor()
+
+    # Creating the database if it doesn't exist
+    sql_query = """
+    CREATE TABLE IF NOT EXISTS LOFI_music(
+    track_name VARCHAR(200),
+    artist_name VARCHAR(200),
+    album VARCHAR(200),
+    artist_genres VARCHAR(200),
+    release_date VARCHAR(200),
+    danceability BIT(20),
+    energy BIT(20),
+    key BIT(20),
+    loudness BIT(20),
+    mode BIT(20),
+    speechiness BIT(20),
+    acousticness BIT(20),
+    instrumentalness BIT(20),
+    liveness BIT(20),
+    valence BIT(20),
+    tempo BIT(20),
+    duration_ms BIT(20),
+    CONSTRAINT track_info PRIMARY KEY (track_name, artist_name)
+    )
+    """
+    cursor.execute(sql_query)
+    print("Opened database successfully")
+
+    # Getting track information
+    track_df = track_extraction.fetch_playlist_tracks(sp, "37i9dQZF1DWWQRwui0ExPn")
+
+    # Loading data into database
+    print("Attempting to load data into database")
+
+    sql = "INSERT OR REPLACE INTO LOFI_music (track_name, artist_name, album, artist_genres, release_date, " \
+          "danceability, energy, key, loudness, mode, speechiness, acousticness, instrumentalness, liveness, valence," \
+          "tempo, duration_ms) " \
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+    # Taking the values and adding them into the columns
+    for track in track_df.values:
+        print(track)
+        cursor.execute(sql, track)
+        conn.commit()
+    print("Data successfully adding.")
+</code></pre>
+        </body>
+              </div>
+              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                  <body>
+                  <pre>
+                      <code class="python">import track_extraction
+import sqlite3
+import sqlalchemy
+import spotipy
+import Authorization
+
+# Spotify featured EDM playlists
+EDM_PL = "37i9dQZF1DX1kCIzMYtzum"
+EDM_HITS = "37i9dQZF1DX3Kdv0IChEm9"
+EDM_MIX_JUST_FOR_YOU = "37i9dQZF1EIed8lWkU8WSm"
+
+sp = spotipy.Spotify(client_credentials_manager=Authorization.client_credentials_manager)
+DATABASE_LOCATION = "sqlite:///spotify_EDMvsLoFi_new.sqlite"
+
+if __name__ == "__main__":
+    # Load
+    conn = sqlite3.connect('spotify_EDMvsLoFi_new.sqlite')
+    engine = sqlalchemy.create_engine(DATABASE_LOCATION)
+    cursor = conn.cursor()
+
+    # Creating the database if it doesn't exist
+    sql_query = """
+    CREATE TABLE IF NOT EXISTS EDM_music(
+    track_name VARCHAR(200),
+    artist_name VARCHAR(200),
+    album VARCHAR(200),
+    artist_genres VARCHAR(200),
+    release_date VARCHAR(200),
+    danceability BIT(20),
+    energy BIT(20),
+    key BIT(20),
+    loudness BIT(20),
+    mode BIT(20),
+    speechiness BIT(20),
+    acousticness BIT(20),
+    instrumentalness BIT(20),
+    liveness BIT(20),
+    valence BIT(20),
+    tempo BIT(20),
+    duration_ms BIT(20),
+    CONSTRAINT track_info PRIMARY KEY (track_name, artist_name)
+    )
+    """
+
+    cursor.execute(sql_query)
+    print("Opened database successfully")
+
+    # Getting track information
+    track_df = track_extraction.fetch_playlist_tracks(sp, "37i9dQZF1DX1kCIzMYtzum")
+
+    # Loading data into database
+    print("Attempting to load data into database")
+
+    sql = "INSERT OR REPLACE INTO EDM_music (track_name, artist_name, album, artist_genres, release_date, danceability,"\
+          "energy, key, loudness, mode, speechiness, acousticness, instrumentalness, liveness, valence, tempo, " \
+          "duration_ms) " \
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+    # Taking the values and adding them into the columns
+    for track in track_df.values:
+        print(track)
+        cursor.execute(sql, track)
+        conn.commit()
+    print("Data successfully adding.")
+</code></pre>
+        </body>
+              </div>
+            </div>
 
         {% endblock %}
