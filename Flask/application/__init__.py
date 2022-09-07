@@ -1,9 +1,5 @@
 from flask import render_template, url_for
-import json
-import plotly
-import plotly.express as px
 from flask import Flask
-import os
 
 app = Flask(__name__)
 
