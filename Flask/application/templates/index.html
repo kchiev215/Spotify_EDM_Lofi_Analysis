@@ -36,6 +36,14 @@
           in-depth analysis of attributes which makes them different from one another.
       <br>
       <br>
+      <u>Explanation of music genre</u>:
+      <br>
+      <p>
+        - <u>Lofi</u> music or low fidelity music, uses samplings from popular beats and melodies in a repeating loop to produce slow, dreamy beats, with a retro touch that we recognize as a record scratching, tape desk hiss, and background static you typically hear in old vinyl and cassettes
+      <br><br>
+        - <u>EDM</u> or electric dance music, primarily uses beats and synthesized sounds to create high energy and upbeat music.
+      </p>
+      <br>
 
       <h4 id="scrollspyHeading1">Inspiration behind the analysis:</h4>
         <p>
@@ -46,8 +54,8 @@
           - <u>Curiosity</u> : What attributes best fits each music type and how does it link to the activities others use them for in their daily lives</p>
 
       <h4 id="scrollspyHeading2">Tools Used:</h4>
-      <p><u>Back-end:</u>
-        <br>
+      <u>Back-end:</u>
+        <br><p>
         - Pycharm
         <br>
         - Python
@@ -61,16 +69,16 @@
         - Matplotlib
         <br>
         - SQLite Database</p>
-        <p><u>Front-end:</u>
+        <u>Front-end:</u>
         <br>
-        - Flask
+        <p>- Flask
         <br>
         - HTML/CSS
           <br></p>
 
       <h4 id="scrollspyHeading3">Method</h4>
-      <p>1. Developed a pipeline to retrieve metadata from API:
-        <br>
+      1. Developed a pipeline to retrieve metadata from API:
+        <p>
         - Track title
         <br>
         - Release title
@@ -107,25 +115,23 @@
         <br>
         - Duration(ms)
         <br>
-        - For a more in-depth description of the audio features, refer back to this [link](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features)
-        <br>
-        2. Uploaded the data into a SQLite database
-        <br>
-	    - The tracks obtained and loaded into the database were from Spotify featured playlists and split into 2 different tables based on their genre for analysis
-        <br>
-        3. Uploaded SQLite database into Jupyter Notebook for analysis:
-	    <br>
+        - For a more in-depth description of the audio features, refer back to this
+          <a href="https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features">[link]</a><br>
+        </p>
+        2. Uploaded the data into a SQL database
+	    <p>- The tracks obtained and loaded into the database were from Spotify featured playlists and split into 2 different tables based on their genre for analysis
+        </p>
+        3. Uploaded SQL database into Jupyter Notebook for analysis:
+	    <p>
         - Correlations
 	    <br>
         - Audio features vs frequency
 		<br>
         - Used to determine which audio features are prominant in each genre
-        <br>
+          </p>
         4. Created front-end on Flask using Python and bootstrap for presentation
-        <br>
-        5. Wrote up conclusions based off of findings from analysis
-        <br>
-      </p>
+      <br>
+      <br>
       <h4 id="scrollspyHeading4">Discussion</h4>
       <p>
         - Spotify tracks do not include track genre:
