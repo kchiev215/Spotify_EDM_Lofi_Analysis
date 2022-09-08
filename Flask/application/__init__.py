@@ -27,3 +27,8 @@ def projects():
 @app.route("/analysis_code")
 def analysis_code():
     return render_template("analysis_code.html")
+
+
+@app.route("/machine_learning")
+def machine_learning():
+    return render_template("ML.html")
